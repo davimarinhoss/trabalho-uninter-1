@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="author"
+      content="Davi Marinho - UNINTER (Engenharia de Software)"
+    />
+    <title>Projeto Acadêmico: Onboarding – [Nome Cliente]</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Montserrat:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        /* Cores */
+        --primary-color: #0d1b2a; /* Azul escuro de fundo da imagem */
+        --secondary-color: #00cec9; /* Verde-azulado dos destaques */
+        --accent-color-dark-theme: #1e293b;
+        --bg-dark-primary: #0d1b2a;
+        --bg-dark-secondary: #1c2a3a;
+        --bg-light-primary: #ffffff;
+        --bg-light-secondary: #f3f4f6;
+        --text-light-primary: #f3f4f6; /* Cor principal do texto na imagem (branco/cinza claro) */
+        --text-light-secondary: #a0aec0; /* Cor secundária do texto (data, slogan) */
+        --text-dark-primary: #1a202c;
+        --text-dark-secondary: #4a5568;
+        --border-color-dark: #334155;
+        --border-color-light: #e2e8f0;
+
+        /* Sombras */
+        --card-shadow-dark: 0 4px 15px rgba(0, 0, 0, 0.2);
+        --card-shadow-light: 0 8px 20px rgba(0, 0, 0, 0.07);
+        --card-shadow-hover-light: 0 12px 28px rgba(0, 0, 0, 0.12),
+          0 5px 10px rgba(0, 0, 0, 0.1);
+        --card-shadow-hover-dark: 0 8px 25px rgba(0, 206, 201, 0.15),
+          0 4px 10px rgba(0, 206, 201, 0.1);
+
+        /* Fontes */
+        --font-primary: "Montserrat", "Segoe UI", Roboto, "Helvetica Neue",
+          Arial, sans-serif;
+        --font-secondary: "Lato", "Segoe UI", Roboto, "Helvetica Neue", Arial,
+          sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: var(--font-secondary);
+        line-height: 1.6;
+        color: var(--text-light-primary);
+        background-color: var(--bg-dark-primary);
+        overflow-x: hidden;
+        padding-top: 50px; /* Ajuste para o corpo da página não ficar sob o menu fixo */
+      }
+
+      /* Estilos do Menu Superior Fixo */
+      #top-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(
+          13,
+          27,
+          42,
+          0.95
+        ); /* var(--primary-color) com alpha */
+        padding: 10px 0;
+        text-align: center;
+        z-index: 1001; /* Acima da navegação lateral, se existir */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      #top-nav a {
+        color: var(--text-light-primary);
+        padding: 8px 12px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-family: var(--font-secondary);
+        margin: 2px 5px; /* Margem para evitar sobreposição se quebrar linha */
+        border-radius: 4px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      #top-nav a:hover,
+      #top-nav a.active-top-nav {
+        /* Implementar JS para 'active-top-nav' se necessário */
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      section {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 80px 20px;
+        position: relative;
+        text-align: center;
+        background-color: var(--bg-dark-primary);
+        color: var(--text-light-primary);
+        border-bottom: 1px solid var(--border-color-dark);
+        overflow: hidden;
+      }
+
+      #onboarding-new-slide1 {
+        border-bottom: none;
+      }
+
+      section.light-section {
+        background-color: var(--bg-light-primary);
+        color: var(--text-dark-primary);
+        border-bottom: 1px solid var(--border-color-light);
+      }
+      section.light-gray-section {
+        background-color: var(--bg-light-secondary);
+        color: var(--text-dark-primary);
+        border-bottom: 1px solid var(--border-color-light);
+      }
+      section:last-child {
+        border-bottom: none;
+      }
+
+      .capa-section {
+        background-color: var(--primary-color);
+        color: var(--text-light-primary);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding-bottom: 60px;
+      }
+      .capa-content {
+        position: relative;
+        z-index: 2;
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .logo-container-capa {
+        margin-bottom: 35px;
+      }
+      .logo-shape-capa {
+        width: 110px;
+        height: 110px;
+        margin: 0 auto;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 206, 201, 0.1);
+        border: 2px solid var(--secondary-color);
+        border-radius: 22px;
+        transform: rotate(45deg);
+        box-shadow: 0 0 20px rgba(0, 206, 201, 0.25);
+      }
+      .logo-text-capa {
+        font-family: var(--font-primary);
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--text-light-primary);
+        z-index: 2;
+        transform: rotate(-45deg);
+      }
+      .logo-text-capa span {
+        color: var(--secondary-color);
+      }
+      .capa-subtitle-onboarding {
+        font-family: var(--font-secondary);
+        font-size: 2.4rem;
+        font-weight: 300;
+        color: var(--text-light-secondary);
+        margin-bottom: 10px;
+        letter-spacing: 1.3px;
+      }
+      .capa-slide-title {
+        font-family: var(--font-primary);
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 30px;
+        line-height: 1.3;
+        color: var(--text-light-primary);
+      }
+      .capa-client-info {
+        font-family: var(--font-secondary);
+        font-size: 1.15rem;
+        color: var(--text-light-secondary);
+        margin-bottom: 12px;
+      }
+      .capa-details {
+        font-family: var(--font-secondary);
+        font-size: 1.1rem;
+        color: var(--text-light-secondary);
+        margin-bottom: 35px;
+      }
+      .capa-details strong {
+        color: var(--text-light-secondary);
+        font-weight: 400;
+      }
+
+      h2.section-title {
+        font-family: var(--font-primary);
+        font-size: 2.6rem;
+        font-weight: 300;
+        color: var(--text-light-primary);
+        position: relative;
+        padding-bottom: 20px;
+        text-align: center;
+        width: fit-content;
+        max-width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 60px;
+      }
+      h2.section-title.on-light-bg {
+        color: var(--text-dark-primary);
+      }
+      h2.section-title::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0;
+        width: 80px;
+        height: 4px;
+        background-color: var(--secondary-color);
+        border-radius: 2px;
+      }
+
+      .especialista-section .container {
+        width: 100%;
+      }
+      .especialista-card {
+        background-color: var(--accent-color-dark-theme);
+        border-radius: 15px;
+        padding: 40px;
+        max-width: 700px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        border: 1px solid var(--border-color-dark);
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: var(--card-shadow-dark);
+        transition: transform 0.3s ease, box-shadow 0.3s ease,
+          border-color 0.3s ease;
+      }
+      .especialista-card:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: var(--card-shadow-hover-dark);
+        border-color: var(--secondary-color);
+      }
+      .especialista-photo {
+        width: 170px;
+        height: 170px;
+        border-radius: 50%;
+        margin-bottom: 30px;
+        overflow: hidden;
+        border: 5px solid var(--secondary-color);
+        box-shadow: 0 0 15px rgba(0, 206, 201, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--border-color-dark);
+        color: var(--text-light-secondary);
+        font-style: italic;
+        text-align: center;
+        padding: 10px;
+      }
+      .especialista-photo img {
+        /* Manter caso use uma imagem genérica */
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .especialista-nome {
+        font-family: var(--font-primary);
+        font-size: 2rem;
+        font-weight: 600;
+        color: var(--text-light-primary);
+        margin-bottom: 20px;
+      }
+      .especialista-info {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+        max-width: 540px;
+        width: 100%;
+      }
+      .especialista-info li {
+        font-size: 1.1rem;
+        color: var(--text-light-secondary);
+        margin-bottom: 12px;
+        padding-left: 25px;
+        position: relative;
+        line-height: 1.5;
+      }
+      .especialista-info li::before {
+        content: "•";
+        color: var(--secondary-color);
+        font-weight: bold;
+        display: inline-block;
+        position: absolute;
+        left: 4px;
+        top: 0px;
+        font-size: 1.2em;
+      }
+
+      .list-section-content ul {
+        list-style: none;
+        padding: 0;
+        max-width: 700px;
+        width: 100%;
+        margin: 0 auto;
+      }
+      .list-section-content li {
+        background-color: var(--bg-light-primary);
+        color: var(--text-dark-primary);
+        padding: 18px 22px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        box-shadow: var(--card-shadow-light);
+        font-size: 1.1rem;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        border-left: 4px solid var(--secondary-color);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .list-section-content li:hover {
+        transform: translateY(-5px) scale(1.03);
+        box-shadow: var(--card-shadow-hover-light);
+      }
+      .list-section-content li .icon {
+        width: 22px;
+        height: 22px;
+        margin-right: 12px;
+        fill: var(--secondary-color);
+        color: var(--secondary-color);
+        flex-shrink: 0;
+        font-size: 1.2em;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #onboarding-new-slide3.list-section-content li {
+        padding-left: 45px;
+        position: relative;
+      }
+      #onboarding-new-slide3.list-section-content li::before {
+        content: "";
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300CEC9'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2V7zm0 8h2v2h-2v-2z'%3E%3C/path%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: 18px 18px;
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 18px;
+        height: 18px;
+      }
+
+      .onboarding-timeline-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+        width: 100%;
+        max-width: 900px;
+        margin-top: 20px;
+        padding: 20px 0;
+        position: relative;
+      }
+      .onboarding-timeline-container::before {
+        content: "";
+        position: absolute;
+        top: 30px;
+        left: 5%;
+        right: 5%;
+        height: 3px;
+        background-color: var(--border-color-light);
+        z-index: 0;
+      }
+      .onboarding-timeline-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        flex-basis: 19%;
+        position: relative;
+        z-index: 1;
+      }
+      .onboarding-step-marker {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: var(--bg-light-primary);
+        border: 3px solid var(--border-color-light);
+        color: var(--text-dark-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-primary);
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        box-shadow: var(--card-shadow-light);
+        transition: all 0.3s ease;
+      }
+      .onboarding-timeline-step.highlighted .onboarding-step-marker {
+        border-color: var(--secondary-color);
+        background-color: var(--secondary-color);
+        color: var(--bg-dark-primary);
+        transform: scale(1.1);
+        box-shadow: 0 0 15px var(--secondary-color);
+      }
+      .onboarding-step-title {
+        font-family: var(--font-primary);
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--text-dark-primary);
+        margin-bottom: 5px;
+      }
+
+      #onboarding-new-slide7.list-section-content ul {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        max-width: 1000px;
+      }
+      #onboarding-new-slide7.list-section-content li {
+        background-color: var(--accent-color-dark-theme);
+        color: var(--text-light-primary);
+        border-left-color: var(--secondary-color);
+        padding: 30px 25px;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        min-height: auto;
+        border: 1px solid var(--border-color-dark);
+        box-shadow: var(--card-shadow-dark);
+        transition: transform 0.3s ease, box-shadow 0.3s ease,
+          border-color 0.3s ease;
+      }
+      #onboarding-new-slide7.list-section-content li:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: var(--card-shadow-hover-dark);
+        border-color: var(--secondary-color);
+      }
+      #onboarding-new-slide7 .papel-title-slide7 {
+        font-family: var(--font-primary);
+        font-size: 1.45rem;
+        font-weight: 600;
+        color: var(--text-light-primary);
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+      }
+      #onboarding-new-slide7 .papel-title-slide7 .icon {
+        width: 25px;
+        height: 25px;
+        margin-right: 10px;
+        fill: var(--secondary-color);
+        flex-shrink: 0;
+      }
+      #onboarding-new-slide7 li p {
+        font-size: 0.95rem;
+        color: var(--text-light-secondary);
+        margin-bottom: 8px;
+        line-height: 1.6;
+        width: 100%;
+      }
+      #onboarding-new-slide7 .prazo-slide7 {
+        font-weight: 600;
+        color: var(--secondary-color);
+        font-size: 0.9rem;
+        margin-top: auto;
+        padding-top: 10px;
+        width: 100%;
+        font-style: italic;
+      }
+
+      .question-section .quote-box {
+        background-color: var(--accent-color-dark-theme);
+        padding: 35px 40px;
+        border-radius: 15px;
+        box-shadow: var(--card-shadow-dark);
+        max-width: 750px;
+        width: 100%;
+        margin: 30px auto;
+        border-left: 5px solid var(--secondary-color);
+        border: 1px solid var(--border-color-dark);
+        transition: transform 0.3s ease, box-shadow 0.3s ease,
+          border-color 0.3s ease;
+      }
+      .question-section .quote-box:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: var(--card-shadow-hover-dark);
+        border-color: var(--secondary-color);
+      }
+      .question-section .quote-text {
+        font-family: var(--font-secondary);
+        font-size: 1.5rem;
+        color: var(--text-light-primary);
+        margin-bottom: 15px;
+        line-height: 1.6;
+      }
+      .question-section .quote-note {
+        font-size: 1rem;
+        color: var(--text-light-secondary);
+      }
+      #onboarding-new-slide9 .list-like-text {
+        font-size: 1.15rem;
+        color: var(--text-light-secondary);
+        margin-bottom: 12px;
+        padding-left: 25px;
+        position: relative;
+        text-align: center;
+        max-width: 100%;
+      }
+      #onboarding-new-slide9 .list-like-text::before {
+        content: "•";
+        color: var(--secondary-color);
+        font-weight: bold;
+        position: absolute;
+        left: 4px;
+        font-size: 1.2em;
+      }
+      #onboarding-new-slide9 .list-like-text strong {
+        color: var(--text-light-primary);
+      }
+
+      #onboarding-new-slide10 {
+        background-color: var(--bg-dark-secondary);
+        text-align: center;
+      }
+      #onboarding-new-slide10 .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #onboarding-new-slide10 .final-message-text {
+        font-family: var(--font-secondary);
+        font-size: 1.8rem;
+        line-height: 1.7;
+        margin-top: 0px;
+        font-weight: 400;
+        max-width: 800px;
+        color: var(--text-light-primary);
+        text-align: center;
+      }
+      #onboarding-new-slide10 .final-message-text strong {
+        color: var(--secondary-color);
+        font-weight: 700;
+      }
+
+      .navigation {
+        position: fixed;
+        right: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1000;
+      }
+      .nav-dots {
+        list-style: none;
+      }
+      .nav-dot {
+        margin: 18px 0;
+      }
+      .nav-link {
+        display: block;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .nav-link.on-light-bg-dot {
+        background-color: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(0, 0, 0, 0.35);
+      }
+      .nav-link:hover,
+      .nav-link.active {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        transform: scale(1.3);
+        box-shadow: 0 0 10px var(--secondary-color);
+      }
+      .nav-tooltip {
+        position: absolute;
+        right: 28px;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: var(--accent-color-dark-theme);
+        color: var(--text-light-primary);
+        padding: 6px 12px;
+        border-radius: 5px;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease, right 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+      .nav-link.on-light-bg-dot .nav-tooltip {
+        background-color: var(--bg-light-primary);
+        color: var(--text-dark-primary);
+        border: 1px solid var(--border-color-light);
+      }
+      .nav-link:hover .nav-tooltip {
+        opacity: 1;
+        visibility: visible;
+        right: 32px;
+      }
+
+      .scroll-indicator-capa {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 3;
+        opacity: 0;
+      }
+      .mouse-capa {
+        width: 24px;
+        height: 38px;
+        border: 2px solid var(--text-light-secondary);
+        border-radius: 12px;
+        position: relative;
+        margin-bottom: 8px;
+      }
+      .mouse-wheel-capa {
+        position: absolute;
+        top: 6px;
+        left: 50%;
+        width: 3px;
+        height: 6px;
+        margin-left: -1.5px;
+        background-color: var(--text-light-secondary);
+        border-radius: 2px;
+        animation: scrollAnimCapa 1.8s ease-in-out infinite;
+      }
+      .scroll-text-capa {
+        font-size: 0.75rem;
+        color: var(--text-light-secondary);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+      @keyframes scrollAnimCapa {
+        0% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        60% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+      }
+      @keyframes fadeInCapaScrollIndicator {
+        from {
+          opacity: 0;
+          transform: translateX(-50%) translateY(10px);
+        }
+        to {
+          opacity: 0.8;
+          transform: translateX(-50%) translateY(0);
+        }
+      }
+
+      @media (max-width: 992px) {
+        section {
+          padding: 70px 15px;
+        }
+        h2.section-title {
+          font-size: 2.3rem;
+          margin-bottom: 50px;
+        }
+        .logo-shape-capa {
+          width: 70px;
+          height: 70px;
+        }
+        .logo-text-capa {
+          font-size: 2rem;
+        }
+        .capa-subtitle-onboarding {
+          font-size: 1.2rem;
+        }
+        .capa-slide-title {
+          font-size: 2.1rem;
+        }
+        .list-section-content li {
+          font-size: 1.05rem;
+          padding: 16px 20px;
+        }
+        #onboarding-new-slide7.list-section-content ul {
+          gap: 20px;
+        }
+        #onboarding-new-slide7.list-section-content li {
+          padding: 25px 20px;
+          min-height: auto;
+        }
+        .onboarding-timeline-container {
+          flex-direction: column;
+          align-items: center;
+        }
+        .onboarding-timeline-container::before {
+          display: none;
+        }
+        .onboarding-timeline-step {
+          margin-bottom: 30px;
+          flex-basis: auto;
+          width: 80%;
+          max-width: 350px;
+        }
+        .onboarding-timeline-step:last-child {
+          margin-bottom: 0;
+        }
+        #onboarding-new-slide10 .final-message-text {
+          font-size: 1.6rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        body {
+          /* Ajustar padding-top para acomodar possíveis duas linhas de links no top-nav */
+          padding-top: 70px;
+        }
+        #top-nav {
+          padding: 8px 0;
+          justify-content: space-around;
+        }
+        #top-nav a {
+          font-size: 0.75rem;
+          padding: 6px 8px;
+          margin: 2px 3px;
+        }
+        /* .navigation { /* Opcional: esconder navegação lateral se preferir só a superior */
+        /* display: none;
+        } */
+
+        section {
+          padding: 60px 10px;
+        }
+        h2.section-title {
+          font-size: 2rem;
+          margin-bottom: 40px;
+          padding-bottom: 15px;
+        }
+        h2.section-title::after {
+          width: 70px;
+          height: 3px;
+        }
+        .logo-shape-capa {
+          width: 60px;
+          height: 60px;
+        }
+        .logo-text-capa {
+          font-size: 1.8rem;
+        }
+        .capa-subtitle-onboarding {
+          font-size: 1.1rem;
+        }
+        .capa-slide-title {
+          font-size: 1.9rem;
+        }
+        .capa-client-info,
+        .capa-details {
+          font-size: 0.9rem;
+        }
+
+        .list-section-content li {
+          font-size: 1rem;
+          padding: 15px 18px;
+        }
+        #onboarding-new-slide3.list-section-content li::before {
+          top: 50%;
+          transform: translateY(-50%);
+          left: 15px;
+          background-size: 16px 16px;
+          width: 16px;
+          height: 16px;
+        }
+        #onboarding-new-slide3.list-section-content li {
+          padding-left: 40px;
+        }
+
+        #onboarding-new-slide7.list-section-content ul {
+          grid-template-columns: 1fr;
+          max-width: 400px;
+        }
+        .onboarding-step-marker {
+          width: 50px;
+          height: 50px;
+          font-size: 1.3rem;
+          margin-bottom: 10px;
+        }
+        .onboarding-step-title {
+          font-size: 0.95rem;
+        }
+        .scroll-indicator-capa {
+          bottom: 20px;
+        }
+        .mouse-capa {
+          width: 22px;
+          height: 34px;
+        }
+        .scroll-text-capa {
+          font-size: 0.7rem;
+        }
+        #onboarding-new-slide10 .final-message-text {
+          font-size: 1.5rem;
+        }
+      }
+      @media (max-width: 480px) {
+        body {
+          padding-top: 90px; /* Aumenta o padding para telas muito pequenas */
+        }
+        h2.section-title {
+          font-size: 1.8rem;
+          margin-bottom: 35px;
+        }
+        .logo-shape-capa {
+          width: 50px;
+          height: 50px;
+        }
+        .logo-text-capa {
+          font-size: 1.5rem;
+        }
+        .capa-subtitle-onboarding {
+          font-size: 1rem;
+        }
+        .capa-slide-title {
+          font-size: 1.6rem;
+          text-align: center;
+        }
+        .capa-client-info,
+        .capa-details {
+          font-size: 0.85rem;
+        }
+        .list-section-content li {
+          flex-direction: column;
+          align-items: flex-start;
+          text-align: left;
+        }
+        .list-section-content li .icon {
+          margin-bottom: 8px;
+        }
+        #onboarding-new-slide3.list-section-content li {
+          padding-left: 35px;
+        }
+        #onboarding-new-slide3.list-section-content li::before {
+          top: 18px;
+          left: 10px;
+          background-size: 14px 14px;
+          width: 14px;
+          height: 14px;
+        }
+
+        #onboarding-new-slide7.list-section-content li {
+          align-items: flex-start;
+        }
+        #onboarding-new-slide10 .final-message-text {
+          font-size: 1.3rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="top-nav">
+      <a href="#onboarding-new-slide1">Capa</a>
+      <a href="#onboarding-new-slide2">Apresentação</a>
+      <a href="#onboarding-new-slide3">Objetivos</a>
+      <a href="#onboarding-new-slide4">Visão Sucesso</a>
+      <a href="#onboarding-new-slide5">Coleta</a>
+      <a href="#onboarding-new-slide6">Jornada</a>
+      <a href="#onboarding-new-slide7">Papéis</a>
+      <a href="#onboarding-new-slide8">Próximos Passos</a>
+      <a href="#onboarding-new-slide9">Dúvidas</a>
+      <a href="#onboarding-new-slide10">Final</a>
+    </div>
+
+    <nav class="navigation">
+      <ul class="nav-dots">
+        <li class="nav-dot">
+          <a href="#onboarding-new-slide1" class="nav-link active"
+            ><span class="nav-tooltip">Capa</span></a
+          >
+        </li>
+        <li class="nav-dot">
+          <a href="#onboarding-new-slide2" class="nav-link"
+            ><span class="nav-tooltip">Apresentação</span></a
+          >
+        </li>
+        <li class="nav-dot">
+          <a href="#onboarding-new-slide3" class="nav-link"
+            ><span class="nav-tooltip">Objetivos</span></a
+          >
+        </li>
+        <li class="nav-dot">
+          <a href="#onboarding-new-slide4" class="nav-link"
+            ><span class="nav-tooltip">Visão Sucesso</span></a
+          >
+        </li>
+        <li class="nav-dot">
+          <a href="#onboarding-new-slide5" class="nav-link"
+            ><span class="nav-tooltip">Coleta</span></a
+          >
+        </li>
+        <li class="nav-dot">
+          <a href="#onboarding-new-slide6" class="nav-link"
+            ><span class="nav-tooltip">Jornada</span></a
+          >
+        </li>
+        <li class="nav-dot">
+          <a href="#onboarding-new-slide7" class="nav-link"
+            ><span class="nav-tooltip">Papéis</span></a
+          >
+        </li>
+        <li class="nav-dot">
+          <a href="#onboarding-new-slide8" class="nav-link"
+            ><span class="nav-tooltip">Próximos Passos</span></a
+          >
+        </li>
+        <li class="nav-dot">
+          <a href="#onboarding-new-slide9" class="nav-link"
+            ><span class="nav-tooltip">Dúvidas</span></a
+          >
+        </li>
+        <li class="nav-dot">
+          <a href="#onboarding-new-slide10" class="nav-link"
+            ><span class="nav-tooltip">Final</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <section id="onboarding-new-slide1" class="capa-section">
+      <div class="capa-content">
+        <div class="logo-container-capa">
+          <div class="logo-shape-capa">
+            <div class="logo-text-capa">P<span>A</span></div>
+          </div>
+        </div>
+        <p class="capa-subtitle-onboarding">Reunião de Onboarding</p>
+        <h1 class="capa-slide-title">Projeto de Onboarding Acadêmico</h1>
+        <p class="capa-client-info">
+          Projeto: [Nome do Projeto / Nome do Cliente]
+        </p>
+        <p class="capa-details">Data: <span id="currentDate"></span></p>
+      </div>
+      <div class="scroll-indicator-capa">
+        <div class="mouse-capa"><div class="mouse-wheel-capa"></div></div>
+        <span class="scroll-text-capa">Explore</span>
+      </div>
+    </section>
+
+    <section id="onboarding-new-slide2" class="especialista-section">
+      <div class="container">
+        <h2 class="section-title">Apresentação do Projeto</h2>
+        <div class="especialista-card">
+          <div class="especialista-photo">
+            <span>Este é um<br />projeto acadêmico</span>
+          </div>
+          <h3 class="especialista-nome">Trabalho Acadêmico</h3>
+          <ul class="especialista-info">
+            <li>Desenvolvido por: Davi Marinho</li>
+            <li>Curso: Engenharia de Software</li>
+            <li>Instituição: UNINTER</li>
+            <li>
+              Disciplina: [Insira o Nome da Disciplina aqui, se aplicável]
+            </li>
+            <li>
+              Objetivo: Demonstrar a criação de uma página de onboarding
+              interativa e responsiva.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="onboarding-new-slide3"
+      class="list-section-content light-gray-section"
+    >
+      <div class="container">
+        <h2 class="section-title on-light-bg">
+          Objetivos da Reunião (Simulada)
+        </h2>
+        <ul>
+          <li>Alinharmos apresentações e papéis (no contexto do projeto)</li>
+          <li>Compreender seus objetivos e contexto (do cliente simulado)</li>
+          <li>Apresentar, de forma clara, a jornada do projeto</li>
+          <li>Alinhar responsabilidades e próximos passos (simulados)</li>
+          <li>
+            Antecipar dúvidas e reforçar o compromisso com a qualidade do
+            projeto
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="onboarding-new-slide4" class="question-section">
+      <div class="container">
+        <h2 class="section-title">
+          O que significa SUCESSO para você (Cliente Simulado)?
+        </h2>
+        <div class="quote-box">
+          <p class="quote-text">
+            “O que precisa acontecer, ao final deste projeto, para que você
+            diga: ‘Valeu a pena’?”
+          </p>
+          <p class="quote-note">
+            (Importante para entender expectativas e personalizar a entrega no
+            contexto acadêmico)
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="onboarding-new-slide5"
+      class="list-section-content light-gray-section"
+    >
+      <div class="container">
+        <h2 class="section-title on-light-bg">
+          O que vamos mapear (Simulação)
+        </h2>
+        <ul>
+          <li>
+            <span class="icon"
+              ><svg viewBox="0 0 24 24">
+                <path
+                  d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"
+                /></svg></span
+            >Nome e escopo do projeto
+          </li>
+          <li>
+            <span class="icon"
+              ><svg viewBox="0 0 24 24">
+                <path
+                  d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"
+                /></svg></span
+            >Partes interessadas (simuladas) e seus papéis
+          </li>
+          <li>
+            <span class="icon"
+              ><svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"
+                />
+                <circle cx="12" cy="12" r="3" /></svg></span
+            >Objetivos acadêmicos (aprendizado, aplicação de conceitos)
+          </li>
+          <li>
+            <span class="icon"
+              ><svg viewBox="0 0 24 24">
+                <path
+                  d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4V6h16v12zM6 10h2v2H6zm0 4h2v2H6zm4-4h8v2h-8zm0 4h8v2h-8z"
+                /></svg></span
+            >Recursos e tecnologias a serem utilizadas
+          </li>
+          <li>
+            <span class="icon"
+              ><svg viewBox="0 0 24 24">
+                <path
+                  d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"
+                /></svg></span
+            >Entregáveis do projeto e critérios de avaliação
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section
+      id="onboarding-new-slide6"
+      class="onboarding-jornada-section light-section"
+    >
+      <div class="container">
+        <h2 class="section-title on-light-bg">
+          A Jornada do Projeto Acadêmico
+        </h2>
+        <div class="onboarding-timeline-container">
+          <div class="onboarding-timeline-step highlighted">
+            <div class="onboarding-step-marker">1</div>
+            <h4 class="onboarding-step-title">Planejamento (hoje)</h4>
+          </div>
+          <div class="onboarding-timeline-step">
+            <div class="onboarding-step-marker">2</div>
+            <h4 class="onboarding-step-title">
+              Desenvolvimento<br /><small>(codificação e design)</small>
+            </h4>
+          </div>
+          <div class="onboarding-timeline-step">
+            <div class="onboarding-step-marker">3</div>
+            <h4 class="onboarding-step-title">
+              Testes<br /><small>(verificação funcional)</small>
+            </h4>
+          </div>
+          <div class="onboarding-timeline-step">
+            <div class="onboarding-step-marker">4</div>
+            <h4 class="onboarding-step-title">
+              Documentação<br /><small>(relatório e apresentação)</small>
+            </h4>
+          </div>
+          <div class="onboarding-timeline-step">
+            <div class="onboarding-step-marker">5</div>
+            <h4 class="onboarding-step-title">
+              Entrega Final<br /><small>(submissão)</small>
+            </h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="onboarding-new-slide7" class="list-section-content">
+      <div class="container">
+        <h2 class="section-title">Quem faz o quê (Simulação)?</h2>
+        <ul>
+          <li>
+            <h3 class="papel-title-slide7">Cliente (Simulado)</h3>
+            <p>Fornecer feedback e validar etapas do projeto</p>
+            <p class="prazo-slide7">(Prazo: Conforme cronograma acadêmico)</p>
+          </li>
+          <li>
+            <h3 class="papel-title-slide7">Desenvolvedor (Davi Marinho)</h3>
+            <p>
+              Execução das fases do projeto, codificação, design e documentação
+            </p>
+          </li>
+          <li>
+            <h3 class="papel-title-slide7">Orientador (UNINTER)</h3>
+            <p>Guia, suporte e avaliação do projeto acadêmico</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section
+      id="onboarding-new-slide8"
+      class="list-section-content light-gray-section"
+    >
+      <div class="container">
+        <h2 class="section-title on-light-bg">
+          O que acontece agora (Projeto)?
+        </h2>
+        <ul>
+          <li>
+            <span class="icon"
+              ><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+                /></svg></span
+            >Definição detalhada do escopo e cronograma
+          </li>
+          <li>
+            <span class="icon"
+              ><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M10 4H4c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"
+                /></svg></span
+            >Início da fase de desenvolvimento e design
+          </li>
+          <li>
+            <span class="icon"
+              ><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+                /></svg></span
+            >Agendamento de checkpoints para revisão e feedback
+          </li>
+          <li>
+            <span class="icon"
+              ><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                /></svg></span
+            >Preparação para a documentação e entrega final
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="onboarding-new-slide9" class="question-section">
+      <div class="container">
+        <h2 class="section-title">Alinhar, esclarecer, ouvir</h2>
+        <div class="quote-box">
+          <p class="quote-text" style="margin-bottom: 25px">
+            Espaço aberto para dúvidas e contribuições sobre o projeto
+          </p>
+          <p
+            class="list-like-text"
+            style="
+              color: var(--text-light-secondary);
+              font-size: 1.1rem;
+              text-align: center;
+              margin-bottom: 8px;
+              padding-left: 0;
+            "
+          >
+            “O que achou da proposta e estrutura até aqui?”
+          </p>
+          <p
+            class="list-like-text"
+            style="
+              color: var(--text-light-secondary);
+              font-size: 1.1rem;
+              text-align: center;
+              padding-left: 0;
+            "
+          >
+            “Existe algo que gostaria de reforçar ou ajustar na apresentação?”
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="onboarding-new-slide10">
+      <div class="container">
+        <h2 class="section-title">Conclusão & Agradecimento</h2>
+        <p class="final-message-text">
+          “Este projeto demonstra a aplicação de conceitos de desenvolvimento
+          web para a criação de uma experiência de onboarding. Agradeço a
+          oportunidade de apresentar este trabalho. Desenvolvido por
+          <strong>Davi Marinho (UNINTER - Engenharia de Software)</strong>.”
+        </p>
+      </div>
+    </section>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const today = new Date();
+        const options = { year: "numeric", month: "long", day: "numeric" };
+        const currentDateEl = document.getElementById("currentDate");
+        if (currentDateEl) {
+          currentDateEl.textContent = today.toLocaleDateString(
+            "pt-BR",
+            options
+          );
+        }
+
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".navigation .nav-link");
+        const topNavLinks = document.querySelectorAll("#top-nav a"); // Seleciona os links do menu superior
+        const scrollIndicator = document.querySelector(
+          ".scroll-indicator-capa"
+        );
+
+        if (scrollIndicator) {
+          setTimeout(() => {
+            scrollIndicator.style.animation =
+              "fadeInCapaScrollIndicator 1s ease forwards";
+            scrollIndicator.style.opacity = "0.8";
+          }, 500);
+        }
+
+        function updateActiveLinks(currentSectionId) {
+          // Atualiza navegação lateral (dots)
+          navLinks.forEach((link) => {
+            link.classList.remove("active");
+            const linkHref = link.getAttribute("href").substring(1);
+            if (linkHref === currentSectionId) {
+              link.classList.add("active");
+            }
+          });
+
+          // Atualiza navegação superior
+          topNavLinks.forEach((link) => {
+            link.classList.remove("active-top-nav");
+            const linkHref = link.getAttribute("href").substring(1);
+            if (linkHref === currentSectionId) {
+              link.classList.add("active-top-nav");
+            }
+          });
+        }
+
+        if (
+          sections.length > 0 &&
+          (navLinks.length > 0 || topNavLinks.length > 0)
+        ) {
+          const sectionObserverOptions = {
+            root: null, // Observa em relação ao viewport
+            rootMargin: "0px",
+            // Tenta ativar o link quando a seção está mais ao centro da tela
+            // Um array de thresholds pode ser usado para maior precisão, mas 0.5 é um bom começo
+            threshold: 0.4, // Reduzido para ativar um pouco antes do centro total
+          };
+
+          const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const currentSectionId = entry.target.id;
+                updateActiveLinks(currentSectionId); // Atualiza ambos os menus
+
+                let isLightSection =
+                  entry.target.classList.contains("light-section") ||
+                  entry.target.classList.contains("light-gray-section");
+
+                // Atualiza a cor dos dots da navegação lateral
+                if (navLinks.length > 0) {
+                  navLinks.forEach((link) => {
+                    if (link.classList.contains("active")) {
+                      navLinks.forEach((nl) => {
+                        if (isLightSection) {
+                          nl.classList.add("on-light-bg-dot");
+                        } else {
+                          nl.classList.remove("on-light-bg-dot");
+                        }
+                      });
+                    }
+                  });
+                }
+              }
+            });
+          }, sectionObserverOptions);
+
+          sections.forEach((section) => {
+            sectionObserver.observe(section);
+          });
+
+          // Define o estado inicial da navegação para a primeira seção
+          if (sections[0]) {
+            const firstSectionId = sections[0].id;
+            updateActiveLinks(firstSectionId); // Atualiza ambos os menus para o primeiro slide
+
+            if (navLinks.length > 0) {
+              if (
+                !(
+                  sections[0].classList.contains("light-section") ||
+                  sections[0].classList.contains("light-gray-section")
+                )
+              ) {
+                navLinks.forEach((nl) =>
+                  nl.classList.remove("on-light-bg-dot")
+                );
+              } else {
+                navLinks.forEach((nl) => nl.classList.add("on-light-bg-dot"));
+              }
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
